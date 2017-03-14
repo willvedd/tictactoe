@@ -3,24 +3,27 @@ import React, {Component} from 'react';
 
 class Cell extends Component{
 
-
-
-
-
 	render(){
+		const {player1Moves,player2Moves,player,onMoved,cellSize,gameIndex} = this.props;
 
-		const playerMoveClass = ()=>{
-			if(this.props.player1Moves.indexOf(this.props.gameIndex) !== -1){
+		const playerMoveClass = () =>{
+			if(player1Moves.indexOf(gameIndex) !== -1){
 				return "p1";
-			} else if(this.props.player2Moves.indexOf(this.props.gameIndex) !== -1){
+			} else if(player2Moves.indexOf(gameIndex) !== -1){
 				return "p2";
 			}
 			else return "";
 		}
 
+		console.log("cellSize",cellSize);
+
+		const cellStyle = {
+			flex: "1 0 "+cellSize+"%",
+			height: cellSize+"vh",
+		}
 
 		return(
-			<button onClick={()=>{this.props.onMoved(this.props.gameIndex)}}className={'cell ' + playerMoveClass()}>Cell!</button>
+			<button style={cellStyle} onClick={()=>onMoved(this.props.gameIndex)} className={'cell ' + playerMoveClass()}></button>
 		);
 	}
 }
