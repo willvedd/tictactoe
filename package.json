@@ -1,6 +1,7 @@
 {
   "name": "tictactoetest",
   "version": "0.1.0",
+  "homepage": "http://willvedd.github.io/tictactoe",
   "private": true,
   "dependencies": {
     "react": "^15.4.2",
