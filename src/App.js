@@ -15,11 +15,7 @@ class App extends Component {
       gameOver: false,
       size: 3,
     }
-
-    this.wins = [
-    [0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8],[2,4,6]];
+    this.wins = this._createWinSets(this.state.size);
   }
 
   _restartGame(){
@@ -54,6 +50,44 @@ class App extends Component {
           turnCounter: turnCounter + 1,
       })
     }
+  }
+
+
+
+  _createWinSets(size){
+    const numberOfPossibleWins = (size * 2) + 2;
+    let winSets = [];
+    let tempWinSet = [];
+
+    for(let i = 0;i<size;i++){//creates horizontal wins
+      tempWinSet = [];
+      for(let j = 0; j < size; j++){
+        tempWinSet.push(j + (i* size));
+      }
+      winSets.push(tempWinSet);
+    }
+    for(let i = 0;i<size;i++){//creates the vertical wins
+      tempWinSet = [];
+      for(let j = 0; j < size; j++){
+        tempWinSet.push(j * size +i);
+      }
+      winSets.push(tempWinSet);
+    }
+    
+    //creates top-left to bottom-right diagonal wins
+    tempWinSet = [];
+    for(let j = 0; j < size; j++){
+      tempWinSet.push(j + (j*size) );
+    }
+    winSets.push(tempWinSet); 
+    //creates top-right to bottom-left diagonal wins
+    tempWinSet = [];
+    for(let j = 0; j < size; j++){
+      tempWinSet.push((size-1) + ((size-1)*j));
+    }
+    winSets.push(tempWinSet); 
+      
+    return winSets;
   }
 
 
@@ -94,6 +128,7 @@ class App extends Component {
   }
 
   componentDidUpdate(){
+    this.wins = this._createWinSets(this.state.size);
     if(!this.state.gameOver) this._hasWon();//this check is necessary to prevent an infinite loop
   }
 
@@ -108,6 +143,7 @@ class App extends Component {
 
   _changeSize(newSize) {
     this._restartGame();
+    
     this.setState({
       size: newSize,
     })

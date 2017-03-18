@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class Cell extends Component{
 
 	render(){
-		const {player1Moves,player2Moves,player,onMoved,cellSize,gameIndex} = this.props;
+		const {player1Moves,player2Moves,onMoved,cellSize,gameIndex} = this.props;
 
 		const playerMoveClass = () =>{
 			if(player1Moves.indexOf(gameIndex) !== -1){
@@ -14,8 +14,6 @@ class Cell extends Component{
 			}
 			else return "";
 		}
-
-		console.log("cellSize",cellSize);
 
 		const cellStyle = {
 			flex: "1 0 "+cellSize+"%",
